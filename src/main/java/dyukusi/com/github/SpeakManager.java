@@ -23,15 +23,17 @@ public class SpeakManager {
         List<Voice> amazonPollyVoices = describeVoicesResult.getVoices();
         EmotionalSpeaker[] voiceTextApiSpeakers = EmotionalSpeaker.values();
 
-        // make instances for VoiceText
-        for (EmotionalSpeaker speaker : voiceTextApiSpeakers) {
-            this.speakers.add(new VoiceText(speaker));
-        }
-
         // make instances for AmazonPolly
         for (Voice voice : amazonPollyVoices) {
             this.speakers.add(new AmazonPolly(voice));
         }
+        
+        // make instances for VoiceText
+        // NOTE: Although its forbidden to use output of free VoiceTextAPI for secondary use atm,
+        //       you can test by just removing following commented out.
+        // for (EmotionalSpeaker speaker : voiceTextApiSpeakers) {
+        //     this.speakers.add(new VoiceText(speaker));
+        // }
     }
 
     List<SpeakerBase> getSpeakers(Language targetLanguage) {
