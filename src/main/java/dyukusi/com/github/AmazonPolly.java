@@ -14,7 +14,7 @@ import javazoom.jl.player.advanced.PlaybackListener;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AmazonPolly extends SpeakerBase {
+public class AmazonPolly extends Speaker {
     private final AmazonPollyClient polly;
     private final Voice voice;
     private final Language language;

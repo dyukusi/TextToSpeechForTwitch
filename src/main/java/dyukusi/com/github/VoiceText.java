@@ -4,7 +4,7 @@ import am.ik.voicetext4j.EmotionalSpeaker;
 
 import java.util.concurrent.ExecutionException;
 
-public class VoiceText extends SpeakerBase {
+public class VoiceText extends Speaker {
     private Language language;
     private EmotionalSpeaker speaker;
 

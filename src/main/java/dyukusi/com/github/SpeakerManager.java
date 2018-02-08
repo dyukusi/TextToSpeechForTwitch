@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpeakManager {
-    ArrayList<SpeakerBase> speakers;
+public class SpeakerManager {
+    ArrayList<Speaker> speakers;
 
-    SpeakManager() {
-        this.speakers = new ArrayList<SpeakerBase>();
+    SpeakerManager() {
+        this.speakers = new ArrayList<Speaker>();
 
         AmazonPollyClient polly = new AmazonPollyClient(new DefaultAWSCredentialsProviderChain(), new ClientConfiguration());
         DescribeVoicesRequest describeVoicesRequest = new DescribeVoicesRequest();
@@ -27,7 +27,7 @@ public class SpeakManager {
         for (Voice voice : amazonPollyVoices) {
             this.speakers.add(new AmazonPolly(voice));
         }
-        
+
         // make instances for VoiceText
         // NOTE: Although its forbidden to use output of free VoiceTextAPI for secondary use atm,
         //       you can test by just removing following commented out.
@@ -36,16 +36,16 @@ public class SpeakManager {
         // }
     }
 
-    List<SpeakerBase> getSpeakers(Language targetLanguage) {
-        List<SpeakerBase> targetSpeakers = this.speakers.stream().filter(x -> {
+    List<Speaker> getSpeakers(Language targetLanguage) {
+        List<Speaker> targetSpeakers = this.speakers.stream().filter(x -> {
             return x.getLanguage() == targetLanguage;
         }).collect(Collectors.toList());
 
         return targetSpeakers;
     }
 
-    SpeakerBase getSpeaker(String name) {
-        SpeakerBase speaker = this.speakers.stream().filter(x -> {
+    Speaker getSpeaker(String name) {
+        Speaker speaker = this.speakers.stream().filter(x -> {
             return x.getName().equals(name);
         }).findFirst().orElse(null);
 

@@ -5,13 +5,12 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class TwitchBot extends PircBot {
     private static String channel;
-    SpeakManager speakManager;
+    SpeakerManager speakManager;
 
     public TwitchBot() throws IOException, IrcException {
         // set keys for VoiceText api
@@ -27,7 +26,7 @@ public class TwitchBot extends PircBot {
         this.joinChannel("#dyukusi");
 
         // for Text2Speech
-        this.speakManager = new SpeakManager();
+        this.speakManager = new SpeakerManager();
     }
 
     @Override
@@ -46,12 +45,12 @@ public class TwitchBot extends PircBot {
         Language detectedLanguage = LanguageDetection.detect(speakMessage);
 
         // get name speaker
-        SpeakerBase nameSpeaker = speakManager.getSpeaker(VoiceId.Joanna.name());
+        Speaker nameSpeaker = speakManager.getSpeaker(VoiceId.Joanna.name());
 
         // get comment speaker
-        List<SpeakerBase> speakerCandidates = speakManager.getSpeakers(detectedLanguage);
+        List<Speaker> speakerCandidates = speakManager.getSpeakers(detectedLanguage);
 
-        SpeakerBase commentSpeaker = speakerCandidates.get(Math.abs(sender.hashCode() % speakerCandidates.size()));
+        Speaker commentSpeaker = speakerCandidates.get(Math.abs(sender.hashCode() % speakerCandidates.size()));
 
         try {
             // speak sender name in English
