@@ -66,8 +66,7 @@ public class AmazonPolly extends Speaker {
             e.printStackTrace();
         }
     }
-
-    // TODO: dirty implementation
+    
     @Override
     public Language getLanguage() {
         return this.language;
